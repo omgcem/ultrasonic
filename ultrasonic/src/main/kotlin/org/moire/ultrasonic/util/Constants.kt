@@ -97,6 +97,7 @@ object Constants {
     const val PREFERENCES_KEY_DIRECTORY_CACHE_TIME = "directoryCacheTime"
     const val PREFERENCES_KEY_CLEAR_PLAYLIST = "clearPlaylist"
     const val PREFERENCES_KEY_CLEAR_BOOKMARK = "clearBookmark"
+    const val PREFERENCES_KEY_BOOKMARK_STOP = "bookmarkStop"
     const val PREFERENCES_KEY_DISC_SORT = "discAndTrackSort"
     const val PREFERENCES_KEY_SEND_BLUETOOTH_NOTIFICATIONS = "sendBluetoothNotifications"
     const val PREFERENCES_KEY_SEND_BLUETOOTH_ALBUM_ART = "sendBluetoothAlbumArt"

@@ -232,6 +232,9 @@ object Settings {
     var shouldClearBookmark
         by BooleanSetting(Constants.PREFERENCES_KEY_CLEAR_BOOKMARK, false)
 
+    var shouldCreateBookmarkOnPauseStop
+        by BooleanSetting(Constants.PREFERENCES_KEY_BOOKMARK_STOP, true)
+
     var singleButtonPlayPause
         by BooleanSetting(
             Constants.PREFERENCES_KEY_SINGLE_BUTTON_PLAY_PAUSE,
