@@ -198,6 +198,8 @@
     <string name="settings.chat_refresh">Chat Refresh Interval</string>
     <string name="settings.clear_bookmark">Clear Bookmark</string>
     <string name="settings.clear_bookmark_summary">Clear bookmark upon completion of playback of a song</string>
+    <string name="settings.bookmark_stop">Bookmark on Pause</string>
+    <string name="settings.bookmark_stop_summary">Create bookmark when pausing playback of a song</string>
     <string name="settings.clear_playlist">Clear Playlist</string>
     <string name="settings.clear_playlist_summary">Clear the playlist upon completion of playback of all songs</string>
     <string name="settings.clear_search_history">Clear Search History</string>
