@@ -314,6 +314,25 @@ class MediaPlayerService : Service() {
             } else {
                 localMediaPlayer.pause()
             }
+            Timber.d("1. Player paused")
+            if (localMediaPlayer.currentPlaying != null) {
+                Timber.d("2. Not Null")
+                val song = localMediaPlayer.currentPlaying?.song
+                Timber.d("3. currentPlaying")
+                //if (Settings.shouldCreateBookmarkOnPauseStop) {
+                val musicService = getMusicService()
+                Timber.d("Creating bookmark")
+                Thread {
+                    val musicService = getMusicService()
+                    try {
+                        musicService.createBookmark(song!!.id, playerPosition)
+                    } catch (all: Exception) {
+                        Timber.e(all, all.stackTraceToString())
+                    }
+                }.start()
+                Timber.d("created bookmark")
+                //}
+            }
             localMediaPlayer.setPlayerState(PlayerState.PAUSED, localMediaPlayer.currentPlaying)
         }
     }

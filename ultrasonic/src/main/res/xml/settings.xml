@@ -95,6 +95,12 @@
             a:summary="@string/settings.clear_bookmark_summary"
             a:title="@string/settings.clear_bookmark"
             app:iconSpaceReserved="false"/>
+        <CheckBoxPreference
+            a:defaultValue="true"
+            a:key="bookmarkStop"
+            a:summary="@string/settings.bookmark_stop_summary"
+            a:title="@string/settings.bookmark_stop"
+            app:iconSpaceReserved="false"/>
         <ListPreference
             a:defaultValue="5000"
             a:entries="@array/bufferLengthNames"
