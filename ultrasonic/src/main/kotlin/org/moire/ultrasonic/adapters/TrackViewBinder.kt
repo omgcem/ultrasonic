@@ -16,7 +16,7 @@ import org.moire.ultrasonic.domain.MusicDirectory
 import org.moire.ultrasonic.service.DownloadFile
 import org.moire.ultrasonic.service.Downloader
 
-class TrackViewBinder(
+open class TrackViewBinder(
     val onItemClick: (DownloadFile) -> Unit,
     val onContextMenuClick: ((MenuItem, DownloadFile) -> Boolean)? = null,
     val checkable: Boolean,
@@ -29,7 +29,7 @@ class TrackViewBinder(
 
     // Set our layout files
     val layout = R.layout.list_item_track
-    val contextMenuLayout = R.menu.context_menu_track
+    open val contextMenuLayout = R.menu.context_menu_track
 
     private val downloader: Downloader by inject()
     private val imageHelper: Utils.ImageHelper = Utils.ImageHelper(context)

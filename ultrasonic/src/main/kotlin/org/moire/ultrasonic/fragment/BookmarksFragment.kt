@@ -9,14 +9,19 @@ package org.moire.ultrasonic.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.view.MenuItem
+import android.widget.CheckedTextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import androidx.core.view.isVisible
 import kotlinx.coroutines.launch
 import org.moire.ultrasonic.R
 import org.moire.ultrasonic.adapters.BaseAdapter
 import org.moire.ultrasonic.domain.MusicDirectory
-import org.moire.ultrasonic.adapters.TrackViewBinder
+import org.moire.ultrasonic.service.MusicServiceFactory.getMusicService
+import org.moire.ultrasonic.adapters.BookmarkViewBinder
 import org.moire.ultrasonic.fragment.FragmentTitle.Companion.setTitle
+import timber.log.Timber
 
 /**
  * Lists the Bookmarks available on the server
@@ -31,10 +36,9 @@ class BookmarksFragment : TrackCollectionFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setTitle(this, R.string.button_bar_bookmarks)
-
         viewAdapter.selectionType = BaseAdapter.SelectionType.SINGLE
         viewAdapter.register(
-            TrackViewBinder(
+            BookmarkViewBinder(
                 onItemClick = { onItemClick(it.song) },
                 onContextMenuClick = { menu, id -> onContextMenuItemSelected(menu, id.song) },
                 checkable = false,
@@ -81,6 +85,36 @@ class BookmarksFragment : TrackCollectionFragment() {
             else
                 null
         }
+    }
+
+    override fun onContextMenuItemSelected(
+        menuItem: MenuItem,
+        item: MusicDirectory.Child
+    ): Boolean {
+        val entryId = item.id
+        when (menuItem.itemId) {
+            R.id.song_menu_play_now -> {
+                onItemClick(item)
+            }
+            R.id.bookmark_menu_delete -> {
+                Thread {
+                    val musicService = getMusicService()
+                    try {
+                        musicService.deleteBookmark(item.id)
+                        getLiveData(arguments, true)
+                    } catch (all: Exception) {
+                        Timber.e(all, all.stackTraceToString())
+                    }
+                }.start()
+            }
+            R.id.bookmark_menu_multiselect -> {
+                //switch to multiselect mode
+            }
+            else -> {
+                return super.onContextMenuItemSelected(menuItem, item)
+            }
+        }
+        return true
     }
 
     /**

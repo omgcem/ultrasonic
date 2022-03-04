@@ -54,6 +54,7 @@
     <string name="common.title">Title</string>
     <string name="common.unpin">Unpin</string>
     <string name="common.various_artists">Various Artists</string>
+    <string name="common.multiselect">Select Multiple</string>
     <string name="delete_playlist">Do you want to delete %1$s</string>
     <string name="download.bookmark_removed" formatted="false">Bookmark removed.</string>
     <string name="download.bookmark_set_at_position" formatted="false">Bookmark set at %s.</string>
