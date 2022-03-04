@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import org.moire.ultrasonic.R
 import org.moire.ultrasonic.adapters.BaseAdapter
 import org.moire.ultrasonic.domain.MusicDirectory
+import org.moire.ultrasonic.adapters.TrackViewBinder
 import org.moire.ultrasonic.fragment.FragmentTitle.Companion.setTitle
 
 /**
@@ -32,6 +33,16 @@ class BookmarksFragment : TrackCollectionFragment() {
         setTitle(this, R.string.button_bar_bookmarks)
 
         viewAdapter.selectionType = BaseAdapter.SelectionType.SINGLE
+        viewAdapter.register(
+            TrackViewBinder(
+                onItemClick = { onItemClick(it.song) },
+                onContextMenuClick = { menu, id -> onContextMenuItemSelected(menu, id.song) },
+                checkable = false,
+                draggable = false,
+                context = requireContext(),
+                lifecycleOwner = viewLifecycleOwner
+            )
+        )
     }
 
     override fun getLiveData(
@@ -55,6 +66,20 @@ class BookmarksFragment : TrackCollectionFragment() {
 
         playNowButton!!.setOnClickListener {
             playNow(getSelectedSongs())
+        }
+    }
+
+    override fun onItemClick(item: MusicDirectory.Child) {
+        playNow(getClickedSong(item))
+    }
+
+    internal fun getClickedSong(item: MusicDirectory.Child): List<MusicDirectory.Entry> {
+        //This can probably be done better
+        return viewAdapter.getCurrentList().mapNotNull {
+            if (it is MusicDirectory.Entry && (it.id == item.id))
+                it
+            else
+                null
         }
     }
 
